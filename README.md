@@ -90,6 +90,22 @@
   <img alt="pacman eating my contributions" src="https://raw.githubusercontent.com/Sharvin-coder/Sharvin-coder/output/pacman-contribution-graph.svg" width="100%">
 </picture>
 
+## 🧠 Live from a real training run
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/neural-field-dark.svg">
+    <img src="assets/neural-field-light.svg" alt="A neural field converging: a coordinate MLP with Fourier features learns a spiral interference pattern; the grid animates through real training checkpoints" height="382">
+  </picture>
+  &nbsp;&nbsp;
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/mlp-forward-dark.svg">
+    <img src="assets/mlp-forward-light.svg" alt="Layer-by-layer forward pass through a trained 4-6-6-3 tanh network: pulses travel along weight edges, neurons glow with their real activations, and the argmax output is ringed" height="300">
+  </picture>
+</p>
+
+<p align="center"><sub>Not stock art — both panels are rendered by <a href="scripts/gen_neural_svgs.py">a numpy script</a> from actual training runs (seed 0): left, a Fourier-feature MLP fitting sin(6πr² − 3θ) shown at real checkpoints with its true MSE; right, the trained network replaying forward passes with edge width ∝ |w| and neuron glow = activation.</sub></p>
+
 ## 🚀 Things I've built
 
 | Project | What it is |
