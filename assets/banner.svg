@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 260" font-family="Georgia, 'Iowan Old Style', 'Times New Roman', serif">
+  <rect width="1400" height="260" fill="#F0EEE6"/>
+
+  <!-- agentic network: left cluster -->
+  <g stroke="#DCD6C8" stroke-width="1.5" fill="none">
+    <path id="e1" d="M 100 60 L 220 42"/>
+    <path id="e2" d="M 220 42 L 300 120"/>
+    <path id="e3" d="M 300 120 L 180 152"/>
+    <path id="e4" d="M 180 152 L 100 60"/>
+    <path id="e5" d="M 180 152 L 82 202"/>
+    <path id="e6" d="M 300 120 L 262 222"/>
+    <path id="e7" d="M 62 122 L 100 60"/>
+    <path id="e8" d="M 62 122 L 82 202"/>
+    <path id="e9" d="M 340 52 L 220 42"/>
+    <path id="e10" d="M 340 52 L 300 120"/>
+    <path id="e11" d="M 382 190 L 300 120"/>
+    <path id="e12" d="M 382 190 L 262 222"/>
+  </g>
+  <!-- right cluster -->
+  <g stroke="#DCD6C8" stroke-width="1.5" fill="none">
+    <path id="f1" d="M 1300 70 L 1180 46"/>
+    <path id="f2" d="M 1180 46 L 1100 122"/>
+    <path id="f3" d="M 1100 122 L 1220 160"/>
+    <path id="f4" d="M 1220 160 L 1300 70"/>
+    <path id="f5" d="M 1220 160 L 1320 210"/>
+    <path id="f6" d="M 1100 122 L 1142 230"/>
+    <path id="f7" d="M 1340 132 L 1300 70"/>
+    <path id="f8" d="M 1340 132 L 1320 210"/>
+    <path id="f9" d="M 1060 58 L 1180 46"/>
+    <path id="f10" d="M 1060 58 L 1100 122"/>
+    <path id="f11" d="M 1022 200 L 1100 122"/>
+    <path id="f12" d="M 1022 200 L 1142 230"/>
+  </g>
+
+  <!-- agent nodes -->
+  <g>
+    <circle cx="100" cy="60" r="7" fill="#CC785C"/>
+    <circle cx="220" cy="42" r="5" fill="#191919"/>
+    <circle cx="300" cy="120" r="9" fill="#CC785C">
+      <animate attributeName="r" values="9;11;9" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="180" cy="152" r="5" fill="#191919"/>
+    <circle cx="82" cy="202" r="6" fill="#CC785C"/>
+    <circle cx="62" cy="122" r="4" fill="#A8A296"/>
+    <circle cx="340" cy="52" r="4" fill="#A8A296"/>
+    <circle cx="262" cy="222" r="5" fill="#191919"/>
+    <circle cx="382" cy="190" r="6" fill="#CC785C"/>
+  </g>
+  <g>
+    <circle cx="1300" cy="70" r="7" fill="#CC785C"/>
+    <circle cx="1180" cy="46" r="5" fill="#191919"/>
+    <circle cx="1100" cy="122" r="9" fill="#CC785C">
+      <animate attributeName="r" values="9;11;9" dur="3.4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1220" cy="160" r="5" fill="#191919"/>
+    <circle cx="1320" cy="210" r="6" fill="#CC785C"/>
+    <circle cx="1340" cy="132" r="4" fill="#A8A296"/>
+    <circle cx="1060" cy="58" r="4" fill="#A8A296"/>
+    <circle cx="1142" cy="230" r="5" fill="#191919"/>
+    <circle cx="1022" cy="200" r="6" fill="#CC785C"/>
+  </g>
+
+  <!-- pulses traveling between agents -->
+  <circle r="3.5" fill="#CC785C">
+    <animateMotion dur="4s" repeatCount="indefinite" path="M 100 60 L 220 42 L 300 120 L 180 152 L 100 60"/>
+  </circle>
+  <circle r="3" fill="#191919">
+    <animateMotion dur="5.5s" repeatCount="indefinite" path="M 82 202 L 180 152 L 300 120 L 340 52"/>
+  </circle>
+  <circle r="3.5" fill="#CC785C">
+    <animateMotion dur="4.6s" repeatCount="indefinite" path="M 1300 70 L 1180 46 L 1100 122 L 1220 160 L 1300 70"/>
+  </circle>
+  <circle r="3" fill="#191919">
+    <animateMotion dur="5.2s" repeatCount="indefinite" path="M 1320 210 L 1220 160 L 1100 122 L 1060 58"/>
+  </circle>
+
+  <!-- starburst spark -->
+  <g transform="translate(487,88)" stroke="#CC785C" stroke-width="4" stroke-linecap="round">
+    <line x1="0" y1="-14" x2="0" y2="-24"/>
+    <line x1="0" y1="14" x2="0" y2="24"/>
+    <line x1="-14" y1="0" x2="-24" y2="0"/>
+    <line x1="14" y1="0" x2="24" y2="0"/>
+    <line x1="-10" y1="-10" x2="-17" y2="-17"/>
+    <line x1="10" y1="10" x2="17" y2="17"/>
+    <line x1="-10" y1="10" x2="-17" y2="17"/>
+    <line x1="10" y1="-10" x2="17" y2="-17"/>
+    <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="24s" repeatCount="indefinite" additive="sum"/>
+  </g>
+
+  <!-- wordmark -->
+  <text x="700" y="140" text-anchor="middle" font-size="76" fill="#191919" letter-spacing="1">Sharvin Goyal</text>
+  <text x="700" y="192" text-anchor="middle" font-size="23" font-style="italic" fill="#7A756A">evals &amp; benchmarks · mechanistic interpretability · alignment</text>
+
+  <!-- baseline rule -->
+  <line x1="560" y1="215" x2="840" y2="215" stroke="#CC785C" stroke-width="2"/>
+</svg>

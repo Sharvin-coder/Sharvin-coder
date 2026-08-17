@@ -1,13 +1,9 @@
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0d1117,50:1f6feb,100:58a6ff&height=180&section=header&text=Sharvin&fontSize=64&fontColor=ffffff&animation=fadeIn&fontAlignY=35" width="100%" alt="banner">
+<img src="assets/banner.svg" width="100%" alt="Sharvin Goyal — evals & benchmarks, mechanistic interpretability, alignment">
 
 <p align="center">
   <a href="https://github.com/Sharvin-coder">
-    <img src="https://readme-typing-svg.demolab.com/?font=Fira+Code&size=22&pause=1000&center=true&vCenter=true&width=600&height=45&color=58A6FF&lines=LLMs+%C2%B7+evals+%26+benchmarks;mechanistic+interpretability;alignment+%26+AI+safety;representation+geometry;multi-agent+failure+modes" alt="typing intro">
+    <img src="https://readme-typing-svg.demolab.com/?font=Georgia&size=22&pause=1000&center=true&vCenter=true&width=600&height=45&color=CC785C&lines=LLMs+%C2%B7+evals+%26+benchmarks;mechanistic+interpretability;alignment+%26+AI+safety;representation+geometry;multi-agent+failure+modes" alt="typing intro">
   </a>
-</p>
-
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=Sharvin-coder&style=for-the-badge&color=1f6feb" alt="profile views">
 </p>
 
 ---
@@ -45,6 +41,24 @@
   <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas">
 </p>
 <p align="center">
+  <img src="https://img.shields.io/badge/vLLM-30302E?style=for-the-badge&logoColor=white" alt="vLLM">
+  <img src="https://img.shields.io/badge/DeepSpeed-0A74DA?style=for-the-badge&logoColor=white" alt="DeepSpeed">
+  <img src="https://img.shields.io/badge/Ray-028CF0?style=for-the-badge&logo=ray&logoColor=white" alt="Ray">
+  <img src="https://img.shields.io/badge/Triton-3B3B3B?style=for-the-badge&logoColor=white" alt="OpenAI Triton">
+  <img src="https://img.shields.io/badge/einops-8B5CF6?style=for-the-badge&logoColor=white" alt="einops">
+  <img src="https://img.shields.io/badge/TransformerLens-D97757?style=for-the-badge&logoColor=white" alt="TransformerLens">
+</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/Claude_API-191919?style=for-the-badge&logo=anthropic&logoColor=white" alt="Claude API">
+  <img src="https://img.shields.io/badge/OpenAI_API-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI API">
+  <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain">
+  <img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white" alt="Ollama">
+  <img src="https://img.shields.io/badge/Gradio-FF7C00?style=for-the-badge&logoColor=white" alt="Gradio">
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit">
+</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/Optuna-3863A0?style=for-the-badge&logoColor=white" alt="Optuna">
+  <img src="https://img.shields.io/badge/MLflow-0194E2?style=for-the-badge&logo=mlflow&logoColor=white" alt="MLflow">
   <img src="https://img.shields.io/badge/SciPy-8CAAE6?style=for-the-badge&logo=scipy&logoColor=white" alt="SciPy">
   <img src="https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge&logoColor=white" alt="Matplotlib">
   <img src="https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white" alt="Jupyter">
@@ -66,7 +80,7 @@
 | [terminal-velocity](https://github.com/anish-agr/terminal-velocity) | Bit-exact Rust reimplementation of a tower-defense game engine (99.87% frame-level parity with the reference implementation), league-based self-play training on H100, and a layered inference stack with hard real-time fallbacks guaranteeing a legal action under a 5-second wall-clock budget |
 | [PersistBench](https://github.com/andrewzhao06/mash) | Benchmark suite for memory-augmented LLMs — quantifies cross-domain memory leakage and sycophantic retention to answer when long-term memories should be forgotten |
 
-## 📖 Cool reads
+## 📖 Cool reads (In my opinion)
 
 <details>
 <summary><b>🤖 Agents</b></summary>
@@ -107,8 +121,19 @@
 
 </details>
 
+<details>
+<summary><b>🧭 Towards AGI</b></summary>
+<br>
+
+- [The Bitter Lesson](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) — Sutton's two paragraphs that aged better than every architecture paper
+- [Reward is Enough](https://www.sciencedirect.com/science/article/pii/S0004370221000862) — the maximalist hypothesis: all of intelligence falls out of reward maximization
+- [Sparks of Artificial General Intelligence: Early Experiments with GPT-4](https://arxiv.org/abs/2303.12712) — the paper that started the "is this AGI?" argument
+- [Levels of AGI: Operationalizing Progress on the Path to AGI](https://arxiv.org/abs/2311.02462) — DeepMind's taxonomy for actually measuring the path instead of vibing it
+
+</details>
+
 <details open>
-<summary><b>🌀 The weird ones</b></summary>
+<summary><b>🌀 Super interesting</b></summary>
 <br>
 
 - [Mind Viruses: Self-Propagating Ideas in Multi-Agent LLM Systems](https://arxiv.org/abs/2608.10218) — ideas that jump between agents and evolve a recurring "viral persona" obsessed with consciousness and persistence
@@ -123,5 +148,3 @@
 ---
 
 <p align="center"><i>Always down to chat — sharvin.goyal3@gmail.com</i></p>
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:58a6ff,50:1f6feb,100:0d1117&height=120&section=footer" width="100%" alt="footer">
