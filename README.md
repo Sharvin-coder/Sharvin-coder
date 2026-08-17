@@ -141,4 +141,30 @@
 
 ---
 
+<p align="center">
+  <img src="assets/logos/mit-csail.png" height="48" alt="MIT CSAIL">&nbsp;&nbsp;&nbsp;
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logos/cmu-scs.svg">
+    <img src="assets/logos/cmu-scs-light.svg" height="24" alt="CMU School of Computer Science">
+  </picture>&nbsp;&nbsp;&nbsp;
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logos/harvard-dark.svg">
+    <img src="assets/logos/harvard.svg" height="36" alt="Harvard University — Department of Economics">
+  </picture>&nbsp;&nbsp;&nbsp;
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logos/icml-dark.svg">
+    <img src="assets/logos/icml.svg" height="40" alt="ICML">
+  </picture>&nbsp;&nbsp;&nbsp;
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logos/colm-dark.svg">
+    <img src="assets/logos/colm.svg" height="40" alt="COLM">
+  </picture>&nbsp;&nbsp;&nbsp;
+  <img src="assets/logos/acl.svg" height="38" alt="ACL">&nbsp;&nbsp;&nbsp;
+  <img src="assets/logos/ycombinator.svg" height="42" alt="Y Combinator">&nbsp;&nbsp;&nbsp;
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logos/mdanderson-dark.svg">
+    <img src="assets/logos/mdanderson.svg" height="42" alt="UT MD Anderson Cancer Center">
+  </picture>
+</p>
+
 <p align="center"><i>Always down to chat — sharvin.goyal3@gmail.com</i></p>
