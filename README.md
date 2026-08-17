@@ -144,26 +144,23 @@
 ---
 
 <p align="center">
-  <img src="assets/logos/mit-csail.png" height="30" alt="MIT CSAIL">&nbsp;&nbsp;
+  <img src="assets/logos/mit-csail.png" height="30" alt="MIT CSAIL">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/logos/cmu-seal-dark.svg">
-    <img src="assets/logos/cmu-seal.svg" height="30" alt="CMU School of Computer Science">
-  </picture>&nbsp;&nbsp;
-  <img src="assets/logos/harvard-shield.svg" height="30" alt="Harvard University — Department of Economics">&nbsp;&nbsp;
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logos/cmu-scs.svg">
+    <img src="assets/logos/cmu-scs-light.svg" height="20" alt="CMU School of Computer Science">
+  </picture>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/logos/harvard-shield.svg" height="30" alt="Harvard University — Department of Economics">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/logos/icml-dark.svg">
     <img src="assets/logos/icml.svg" height="26" alt="ICML">
-  </picture>&nbsp;&nbsp;
+  </picture>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/logos/colm-dark.svg">
     <img src="assets/logos/colm.svg" height="26" alt="COLM">
-  </picture>&nbsp;&nbsp;
-  <img src="assets/logos/acl.svg" height="24" alt="ACL">&nbsp;&nbsp;
-  <img src="assets/logos/ycombinator.svg" height="28" alt="Y Combinator">&nbsp;&nbsp;
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/logos/mdanderson-dark.svg">
-    <img src="assets/logos/mdanderson.svg" height="26" alt="UT MD Anderson Cancer Center">
-  </picture>
+  </picture>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/logos/acl.svg" height="24" alt="ACL">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/logos/ycombinator.svg" height="28" alt="Y Combinator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/logos/mdanderson-icon.png" height="28" alt="UT MD Anderson Cancer Center">
 </p>
 
 <p align="center"><i>Always down to chat — sharvin.goyal3@gmail.com</i></p>
