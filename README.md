@@ -16,6 +16,8 @@
   <img src="https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white" alt="Rust">
   <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
+  <img src="https://img.shields.io/badge/C%23-68217A?style=for-the-badge&logo=dotnet&logoColor=white" alt="C#">
   <img src="https://img.shields.io/badge/LaTeX-008080?style=for-the-badge&logo=latex&logoColor=white" alt="LaTeX">
 </p>
 <p align="center">
@@ -23,12 +25,14 @@
   <img src="https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" alt="TensorFlow">
   <img src="https://img.shields.io/badge/JAX-8A2BE2?style=for-the-badge&logoColor=white" alt="JAX">
   <img src="https://img.shields.io/badge/Lightning-792EE5?style=for-the-badge&logo=lightning&logoColor=white" alt="PyTorch Lightning">
+  <img src="https://img.shields.io/badge/Hugging_Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" alt="Hugging Face">
   <img src="https://img.shields.io/badge/🤗_Transformers-FFD21E?style=for-the-badge&logoColor=black" alt="Hugging Face Transformers">
   <img src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="scikit-learn">
 </p>
 <p align="center">
   <img src="https://img.shields.io/badge/XGBoost-1A6FA8?style=for-the-badge&logoColor=white" alt="XGBoost">
   <img src="https://img.shields.io/badge/CUDA-76B900?style=for-the-badge&logo=nvidia&logoColor=white" alt="CUDA">
+  <img src="https://img.shields.io/badge/Unity-000000?style=for-the-badge&logo=unity&logoColor=white" alt="Unity">
   <img src="https://img.shields.io/badge/ONNX-005CED?style=for-the-badge&logo=onnx&logoColor=white" alt="ONNX">
   <img src="https://img.shields.io/badge/W%26B-FFBE00?style=for-the-badge&logo=weightsandbiases&logoColor=black" alt="Weights & Biases">
   <img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="NumPy">
@@ -37,16 +41,22 @@
 <p align="center">
   <img src="https://img.shields.io/badge/vLLM-30302E?style=for-the-badge&logoColor=white" alt="vLLM">
   <img src="https://img.shields.io/badge/DeepSpeed-0A74DA?style=for-the-badge&logoColor=white" alt="DeepSpeed">
+  <img src="https://img.shields.io/badge/Megatron--LM-76B900?style=for-the-badge&logo=nvidia&logoColor=white" alt="Megatron-LM">
   <img src="https://img.shields.io/badge/Ray-028CF0?style=for-the-badge&logo=ray&logoColor=white" alt="Ray">
   <img src="https://img.shields.io/badge/Triton-3B3B3B?style=for-the-badge&logoColor=white" alt="OpenAI Triton">
   <img src="https://img.shields.io/badge/einops-8B5CF6?style=for-the-badge&logoColor=white" alt="einops">
   <img src="https://img.shields.io/badge/TransformerLens-D97757?style=for-the-badge&logoColor=white" alt="TransformerLens">
+  <img src="https://img.shields.io/badge/SAELens-5A4FCF?style=for-the-badge&logoColor=white" alt="SAELens">
+  <img src="https://img.shields.io/badge/N2G-455A64?style=for-the-badge&logoColor=white" alt="N2G">
 </p>
 <p align="center">
   <img src="https://img.shields.io/badge/Claude_API-191919?style=for-the-badge&logo=anthropic&logoColor=white" alt="Claude API">
   <img src="https://img.shields.io/badge/OpenAI_API-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI API">
+  <img src="https://img.shields.io/badge/OpenRouter-6566F1?style=for-the-badge&logo=openrouter&logoColor=white" alt="OpenRouter">
   <img src="https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain">
   <img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white" alt="Ollama">
+  <img src="https://img.shields.io/badge/Gemma-886FBF?style=for-the-badge&logo=googlegemini&logoColor=white" alt="Gemma">
+  <img src="https://img.shields.io/badge/Llama-0467DF?style=for-the-badge&logo=meta&logoColor=white" alt="Llama">
   <img src="https://img.shields.io/badge/Gradio-FF7C00?style=for-the-badge&logoColor=white" alt="Gradio">
   <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit">
 </p>
@@ -59,6 +69,8 @@
   <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git">
   <img src="https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux">
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+  <img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logoColor=white" alt="AWS">
+  <img src="https://img.shields.io/badge/Azure-0078D4?style=for-the-badge&logoColor=white" alt="Azure">
 </p>
 
 <picture>
