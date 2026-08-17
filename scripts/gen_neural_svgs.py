@@ -46,7 +46,7 @@ def divmap(v, shade=1.0):
 
 
 # ------------------------------------------------------------ panel 1: S^2 field
-N_LAT, N_LON = 18, 22          # front-hemisphere mesh resolution
+N_LAT, N_LON = 30, 36          # front-hemisphere mesh resolution
 TILT = np.deg2rad(-18)         # tilt toward the viewer
 KEEP = [0, 20, 60, 150, 400, 1200]
 
@@ -148,7 +148,7 @@ def build_mesh():
             nz = np.cos(tc)
             n = np.array([nx, ny * np.cos(TILT) - nz * np.sin(TILT),
                           ny * np.sin(TILT) + nz * np.cos(TILT)])
-            shade = 0.62 + 0.38 * max(0.0, float(n @ light))
+            shade = 0.80 + 0.20 * max(0.0, float(n @ light))
             quads.append([(c[0], c[2]) for c in corners])
             theta_c.append(tc); phi_c.append(pc); shades.append(shade)
     return dict(quads=quads, theta_c=np.array(theta_c),
@@ -213,7 +213,7 @@ def _project_pt(x, y, z):
 def sphere_svg(dark):
     mesh, ckpts, losses, tgt = FIELD
     width, height = 660, 352
-    cx, cy, R = 172, 196, 108
+    cx, cy, R = 172, 192, 86
     fg = "#c9d1d9" if dark else "#24292f"
     sub = "#8b949e" if dark else "#57606a"
     rim = "#30363d" if dark else "#d0d7de"
@@ -263,11 +263,13 @@ def sphere_svg(dark):
             f'<text x="{x2 + (6 if lbl != "z" else -2):.1f}" y="{y2 + (10 if lbl != "z" else -5):.1f}" fill="{axis}" font-size="9">{lbl}</text>'
         )
 
-    parts.append(
-        f'<circle cx="{cx}" cy="{cy}" r="{R + 1}" fill="none" stroke="{rim}" stroke-width="1.2"/>'
-    )
     for k, (q, shade) in enumerate(zip(mesh["quads"], mesh["shades"])):
-        pts = " ".join(f"{cx + R * x:.1f},{cy - R * z:.1f}" for x, z in q)
+        # expand each quad slightly about its centroid to hide AA seams
+        qx = [p[0] for p in q]; qz = [p[1] for p in q]
+        mx, mz = sum(qx) / 4, sum(qz) / 4
+        pts = " ".join(
+            f"{cx + R * (mx + 1.12 * (x - mx)):.1f},{cy - R * (mz + 1.12 * (z - mz)):.1f}"
+            for x, z in q)
         vals = [divmap(f[k], shade) for f in frames]
         vals = vals + [vals[-1], vals[0]]
         parts.append(
@@ -275,7 +277,7 @@ def sphere_svg(dark):
             f'<animate attributeName="fill" values="{";".join(vals)}" keyTimes="{key_times}" dur="{dur}" repeatCount="indefinite"/></polygon>'
         )
     parts.append(
-        f'<ellipse cx="{cx - 38}" cy="{cy - 60}" rx="27" ry="17" fill="white" opacity="{0.10 if dark else 0.20}" transform="rotate(-32 {cx - 38} {cy - 60})"/>'
+        f'<circle cx="{cx}" cy="{cy}" r="{R + 1.6}" fill="none" stroke="{rim}" stroke-width="1.6"/>'
     )
     for i, (ep, ls) in enumerate(zip(KEEP, losses)):
         op = ["0"] * (nf + 2)
