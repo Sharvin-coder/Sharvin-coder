@@ -143,6 +143,7 @@
 
 ---
 
+<!--
 <p align="center">
   <img src="assets/logos/mit-csail.png" height="30" alt="MIT CSAIL">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <picture>
@@ -162,5 +163,6 @@
   <img src="assets/logos/ycombinator.svg" height="28" alt="Y Combinator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <img src="assets/logos/mdanderson-icon.png" height="28" alt="UT MD Anderson Cancer Center">
 </p>
+-->
 
 <p align="center"><i>Always down to chat — sharvin.goyal3@gmail.com</i></p>
