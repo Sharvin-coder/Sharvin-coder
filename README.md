@@ -1,14 +1,15 @@
 <h2 align="center">Hey, I'm Sharvin 👋</h2>
 
 <p align="center">
-AI research — <b>LLMs</b> · <b>mathematical representations</b> · <b>evals & benchmarking</b> · <b>AI safety</b>
+<b>LLMs</b> · <b>evaluations & benchmarks</b> · <b>AI safety</b>
 </p>
 
 ---
 
-- 🔭 I build careful, reproducible experiments: multi-seed everything, no hand-typed numbers, real baselines.
-- 🧠 Current interests: what language models actually learn from their data; geometry and equivariance in neural representations; building evals that can't be gamed; measuring when LLM oversight looks better than it is.
-- 📚 Several first-author papers currently under review (NLP + geometric DL venues).
+- 🧪 I like poking at language models until they break — then building evals and benchmarks that catch it properly.
+- 🧮 Also into the math side of things: geometry, representations, and why models learn what they learn.
+- 🎮 Occasionally I teach machines to play games better than I can.
+- ☕ Fueled by way too much caffeine and "one more experiment" energy.
 
 ## 🛠️ Languages & Tools
 
@@ -35,20 +36,13 @@ AI research — <b>LLMs</b> · <b>mathematical representations</b> · <b>evals &
   <img src="https://img.shields.io/badge/VS_Code-007ACC?style=for-the-badge&logoColor=white" alt="VS Code">
 </p>
 
-## 📊 Activity
-
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Sharvin-coder&show_icons=true&include_all_commits=true&count_private=true&theme=github_dark&hide_border=true" alt="GitHub stats" height="165">
-  <img src="https://streak-stats.demolab.com/?user=Sharvin-coder&theme=github-dark-blue&hide_border=true" alt="streak" height="165">
-</p>
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Sharvin-coder/Sharvin-coder/output/github-snake-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Sharvin-coder/Sharvin-coder/output/github-snake.svg">
   <img alt="snake eating my contributions" src="https://raw.githubusercontent.com/Sharvin-coder/Sharvin-coder/output/github-snake.svg" width="100%">
 </picture>
 
-## 🔬 Selected work
+## 🚀 Things I've built
 
 | Project | What it is |
 |---|---|
@@ -57,4 +51,4 @@ AI research — <b>LLMs</b> · <b>mathematical representations</b> · <b>evals &
 
 ---
 
-<p align="center"><i>Always happy to talk research — reach me at sharvin.goyal3@gmail.com</i></p>
+<p align="center"><i>Always down to chat — sharvin.goyal3@gmail.com</i></p>
