@@ -142,28 +142,25 @@
 ---
 
 <p align="center">
-  <img src="assets/logos/mit-csail.png" height="48" alt="MIT CSAIL">&nbsp;&nbsp;&nbsp;
+  <img src="assets/logos/mit-csail.png" height="30" alt="MIT CSAIL">&nbsp;&nbsp;
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/logos/cmu-scs.svg">
-    <img src="assets/logos/cmu-scs-light.svg" height="24" alt="CMU School of Computer Science">
-  </picture>&nbsp;&nbsp;&nbsp;
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/logos/harvard-dark.svg">
-    <img src="assets/logos/harvard.svg" height="36" alt="Harvard University — Department of Economics">
-  </picture>&nbsp;&nbsp;&nbsp;
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logos/cmu-seal-dark.svg">
+    <img src="assets/logos/cmu-seal.svg" height="30" alt="CMU School of Computer Science">
+  </picture>&nbsp;&nbsp;
+  <img src="assets/logos/harvard-shield.svg" height="30" alt="Harvard University — Department of Economics">&nbsp;&nbsp;
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/logos/icml-dark.svg">
-    <img src="assets/logos/icml.svg" height="40" alt="ICML">
-  </picture>&nbsp;&nbsp;&nbsp;
+    <img src="assets/logos/icml.svg" height="26" alt="ICML">
+  </picture>&nbsp;&nbsp;
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/logos/colm-dark.svg">
-    <img src="assets/logos/colm.svg" height="40" alt="COLM">
-  </picture>&nbsp;&nbsp;&nbsp;
-  <img src="assets/logos/acl.svg" height="38" alt="ACL">&nbsp;&nbsp;&nbsp;
-  <img src="assets/logos/ycombinator.svg" height="42" alt="Y Combinator">&nbsp;&nbsp;&nbsp;
+    <img src="assets/logos/colm.svg" height="26" alt="COLM">
+  </picture>&nbsp;&nbsp;
+  <img src="assets/logos/acl.svg" height="24" alt="ACL">&nbsp;&nbsp;
+  <img src="assets/logos/ycombinator.svg" height="28" alt="Y Combinator">&nbsp;&nbsp;
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/logos/mdanderson-dark.svg">
-    <img src="assets/logos/mdanderson.svg" height="42" alt="UT MD Anderson Cancer Center">
+    <img src="assets/logos/mdanderson.svg" height="26" alt="UT MD Anderson Cancer Center">
   </picture>
 </p>
 
