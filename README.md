@@ -1,11 +1,5 @@
 <img src="assets/banner.svg" width="100%" alt="Sharvin Goyal — evals & benchmarks, mechanistic interpretability, alignment">
 
-<p align="center">
-  <a href="https://github.com/Sharvin-coder">
-    <img src="https://readme-typing-svg.demolab.com/?font=Georgia&size=22&pause=1000&center=true&vCenter=true&width=600&height=45&color=CC785C&lines=LLMs+%C2%B7+evals+%26+benchmarks;mechanistic+interpretability;alignment+%26+AI+safety;representation+geometry;multi-agent+failure+modes" alt="typing intro">
-  </a>
-</p>
-
 ---
 
 - 🧪 **Evals & benchmarks** — contamination-resistant task design, metric validity, and knowing when a benchmark measures capability vs. memorization.
