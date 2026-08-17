@@ -90,7 +90,6 @@
   <img alt="pacman eating my contributions" src="https://raw.githubusercontent.com/Sharvin-coder/Sharvin-coder/output/pacman-contribution-graph.svg" width="100%">
 </picture>
 
-<!--
 ## 🧠 Working demos
 
 <p align="center">
@@ -107,7 +106,6 @@
 </p>
 
 <p align="center"><sub>Not stock art — every panel is rendered by <a href="scripts/gen_neural_svgs.py">a numpy script</a> from actual training runs (seed 0). Top left: a neural field on S² in a 3D frame — Fourier features of (x,y,z) → tanh MLP fitting Re[Y₄³] + 0.6·Re[Y₆²], replayed at real checkpoints with its true MSE (toy cousin of ongoing work on equivariant spherical neural fields). Top right: the same recipe converged on four 2D targets, each with its final MSE. Bottom left: a 5-layer classifier trained on 100 real words across five scripts — dream · corazón · संगीत · موسيقى · 音乐 — edges colored by weight sign, nodes by real activation, with true softmax probabilities. Bottom right: mech-interp readout — the network's mean input→logit Jacobian as an attribution map, showing which script/character features push each language's logit up or down.</sub></p>
--->
 
 ## 🚀 Things I've built
 
