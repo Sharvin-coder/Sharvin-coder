@@ -1,4 +1,4 @@
-name: generate-snake
+name: generate-pacman
 
 on:
   schedule:
@@ -14,13 +14,10 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate snake animation
-        uses: Platane/snk/svg-only@v3
+      - name: Generate Pac-Man contribution animation
+        uses: abozanona/pacman-contribution-graph@main
         with:
           github_user_name: Sharvin-coder
-          outputs: |
-            dist/github-snake.svg
-            dist/github-snake-dark.svg?palette=github-dark
 
       - name: Publish to output branch
         uses: crazy-max/ghaction-github-pages@v4
