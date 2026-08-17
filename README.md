@@ -6,10 +6,10 @@
 
 ---
 
-- 🧪 I like poking at language models until they break — then building evals and benchmarks that catch it properly.
-- 🧮 Also into the math side of things: geometry, representations, and why models learn what they learn.
-- 🎮 Occasionally I teach machines to play games better than I can.
-- ☕ Fueled by way too much caffeine and "one more experiment" energy.
+- 🧪 Evals & benchmarks: contamination-resistant task design, metric validity, variance-aware reporting — mean ± std across seeds or it didn't happen.
+- 🧮 Representation geometry: equivariance, symmetry constraints, and information-theoretic views of what models actually internalize.
+- 🤖 Failure modes of LLM systems: injection propagation in multi-agent setups, oversight gaming, benchmark saturation without capability.
+- ⚙️ Systems when it counts: bit-exact engine reimplementation, self-play training loops, hard real-time inference budgets.
 
 ## 🛠️ Languages & Tools
 
@@ -79,6 +79,14 @@
 **Safety**
 - [Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training](https://arxiv.org/abs/2401.05566) — backdoors that survive RLHF
 - [Weak-to-Strong Generalization](https://arxiv.org/abs/2312.09390) — can a weak supervisor elicit a strong model's full capability?
+
+**The weird ones**
+- [Mind Viruses: Self-Propagating Ideas in Multi-Agent LLM Systems](https://arxiv.org/abs/2608.10218) — ideas that jump between agents and evolve a recurring "viral persona" obsessed with consciousness and persistence
+- [LLMs Can't Jump](https://philsci-archive.pitt.edu/28024/) — position paper: models handle induction and deduction, but not the abductive leap that invents new axioms
+- [Agent Smith: A Single Image Can Jailbreak One Million Multimodal LLM Agents Exponentially Fast](https://arxiv.org/abs/2402.08567) — jailbreaks with epidemic dynamics
+- [Prompt Infection: LLM-to-LLM Prompt Injection within Multi-Agent Systems](https://arxiv.org/abs/2410.07283) — prompt injection as a literal self-replicating computer virus
+- [The Reversal Curse: LLMs Trained on "A is B" Fail to Learn "B is A"](https://arxiv.org/abs/2309.12288) — the most embarrassing generalization failure in the literature
+- [Alignment Faking in Large Language Models](https://arxiv.org/abs/2412.14093) — models that strategically comply during training to protect their preferences
 
 ---
 
