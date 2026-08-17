@@ -95,16 +95,17 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/neural-field-sphere-dark.svg">
-    <img src="assets/neural-field-sphere-light.svg" alt="A neural field on the sphere converging: a coordinate MLP with Fourier features of (x,y,z) learns a spherical-harmonic mixture, rendered as a shaded 3D sphere animating through real training checkpoints" height="452">
+    <img src="assets/neural-field-sphere-light.svg" alt="Left half: a neural field on the sphere converging inside a 3D coordinate frame — a coordinate MLP with Fourier features of (x,y,z) learns a spherical-harmonic mixture across real training checkpoints. Right half: four converged 2D neural fields (spiral, interference, gabor, rings)" width="610">
   </picture>
-  &nbsp;&nbsp;
+</p>
+<p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/mlp-multilingual-dark.svg">
-    <img src="assets/mlp-multilingual-light.svg" alt="Layer-by-layer forward pass through a trained 8-12-12-8-5 tanh network classifying real words from five languages: pulses travel along weight edges, neurons glow with their real activations, and the winning language is ringed with its softmax probability" height="380">
+    <img src="assets/mlp-multilingual-light.svg" alt="Layer-by-layer forward pass through a trained 8-12-12-8-5 tanh network classifying real words from five languages: pulses travel along weight edges, neurons glow with their real activations, and the winning language is ringed with its softmax probability" width="640">
   </picture>
 </p>
 
-<p align="center"><sub>Not stock art — both panels are rendered by <a href="scripts/gen_neural_svgs.py">a numpy script</a> from actual training runs (seed 0). Left: a neural field on S² — Fourier features of (x,y,z) → tanh MLP fitting the spherical-harmonic mixture Re[Y₄³] + 0.6·Re[Y₆²], replayed at real checkpoints with its true MSE (toy cousin of ongoing work on equivariant spherical neural fields). Right: a 5-layer classifier trained on 100 real words across five scripts — dream · corazón · संगीत · موسيقى · 音乐 — with edge width ∝ |w|, neuron glow = real activation, and true softmax probabilities.</sub></p>
+<p align="center"><sub>Not stock art — every panel is rendered by <a href="scripts/gen_neural_svgs.py">a numpy script</a> from actual training runs (seed 0). Top left: a neural field on S² in a 3D frame — Fourier features of (x,y,z) → tanh MLP fitting Re[Y₄³] + 0.6·Re[Y₆²], replayed at real checkpoints with its true MSE (toy cousin of ongoing work on equivariant spherical neural fields). Top right: the same recipe converged on four 2D targets, each with its final MSE. Bottom: a 5-layer classifier trained on 100 real words across five scripts — dream · corazón · संगीत · موسيقى · 音乐 — with edge width ∝ |w|, neuron glow = real activation, and true softmax probabilities.</sub></p>
 
 ## 🚀 Things I've built
 

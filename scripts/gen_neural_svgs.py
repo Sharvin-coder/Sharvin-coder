@@ -46,7 +46,7 @@ def divmap(v, shade=1.0):
 
 
 # ------------------------------------------------------------ panel 1: S^2 field
-N_LAT, N_LON = 20, 24          # front-hemisphere mesh resolution
+N_LAT, N_LON = 18, 22          # front-hemisphere mesh resolution
 TILT = np.deg2rad(-18)         # tilt toward the viewer
 KEEP = [0, 20, 60, 150, 400, 1200]
 
@@ -155,13 +155,70 @@ def build_mesh():
                 phi_c=np.array(phi_c), shades=np.array(shades))
 
 
+def train_field2d(target_fn, iters=800):
+    """Fit a 2D neural field on [-1,1]^2; return final grid values + mse."""
+    n = 20
+    xs = np.linspace(-1, 1, n)
+    X, Y = np.meshgrid(xs, xs)
+    pts = np.stack([X.ravel(), Y.ravel()], 1)
+    target = target_fn(pts[:, 0], pts[:, 1])
+
+    B = rng.normal(0, 2.0, (2, 16))
+    feats = np.concatenate([np.sin(pts @ B * np.pi), np.cos(pts @ B * np.pi)], 1)
+    d_in, d_h = feats.shape[1], 48
+    W1 = rng.normal(0, 1 / np.sqrt(d_in), (d_in, d_h)); b1 = np.zeros(d_h)
+    W2 = rng.normal(0, 1 / np.sqrt(d_h), (d_h, 1)); b2 = np.zeros(1)
+    params = dict(W1=W1, b1=b1, W2=W2, b2=b2)
+    m = {k: np.zeros_like(v) for k, v in params.items()}
+    v_ = {k: np.zeros_like(v) for k, v in params.items()}
+    lr, beta1, beta2, eps = 3e-3, 0.9, 0.999, 1e-8
+    for it in range(iters):
+        h = np.tanh(feats @ params["W1"] + params["b1"])
+        pred = (h @ params["W2"] + params["b2"]).ravel()
+        err = pred - target
+        g_pred = (2 * err / len(err))[:, None]
+        gW2 = h.T @ g_pred; gb2 = g_pred.sum(0)
+        g_h = g_pred @ params["W2"].T * (1 - h ** 2)
+        gW1 = feats.T @ g_h; gb1 = g_h.sum(0)
+        grads = dict(W1=gW1, b1=gb1, W2=gW2, b2=gb2)
+        for k in params:
+            m[k] = beta1 * m[k] + (1 - beta1) * grads[k]
+            v_[k] = beta2 * v_[k] + (1 - beta2) * grads[k] ** 2
+            mh = m[k] / (1 - beta1 ** (it + 1))
+            vh = v_[k] / (1 - beta2 ** (it + 1))
+            params[k] -= lr * mh / (np.sqrt(vh) + eps)
+    h = np.tanh(feats @ params["W1"] + params["b1"])
+    pred = (h @ params["W2"] + params["b2"]).ravel()
+    mse = float(np.mean((pred - target) ** 2))
+    return n, pred, target, mse
+
+
+FIELD2D_TARGETS = [
+    ("spiral", lambda x, y: np.sin(6 * (x ** 2 + y ** 2) * np.pi
+                                   - 3 * np.arctan2(y, x))),
+    ("interference", lambda x, y: (np.sin(3 * np.pi * x)
+                                   + np.sin(3 * np.pi * y)) / 2),
+    ("gabor", lambda x, y: np.exp(-2 * (x ** 2 + y ** 2))
+                           * np.sin(6 * np.pi * x)),
+    ("rings", lambda x, y: np.sin(5 * np.pi * np.sqrt(x ** 2 + y ** 2))),
+]
+
+
+def _project_pt(x, y, z):
+    """Same tilted orthographic projection used for the sphere mesh."""
+    ct, st = np.cos(TILT), np.sin(TILT)
+    return x, y * st + z * ct           # screen (right, up)
+
+
 def sphere_svg(dark):
     mesh, ckpts, losses, tgt = FIELD
-    width, height = 400, 452
-    cx, cy, R = width / 2, 240, 168
+    width, height = 660, 352
+    cx, cy, R = 172, 196, 108
     fg = "#c9d1d9" if dark else "#24292f"
     sub = "#8b949e" if dark else "#57606a"
     rim = "#30363d" if dark else "#d0d7de"
+    grid = "#21262d" if dark else "#eaeef2"
+    axis = "#484f58" if dark else "#afb8c1"
 
     amp = np.abs(tgt).max()
     frames = [np.clip((f / amp + 1) / 2, 0, 1) for f in ckpts]
@@ -170,14 +227,45 @@ def sphere_svg(dark):
     key_times = ";".join(f"{t:.3f}" for t in kt)
     dur = "12s"
 
+    def P(x, y, z):
+        sx, sz = _project_pt(x, y, z)
+        return cx + R * sx, cy - R * sz
+
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">',
-        f'<text x="20" y="20" fill="{fg}" font-size="13" font-weight="bold">neural field on S&#178;</text>',
-        f'<text x="20" y="35" fill="{sub}" font-size="10">fitting Re[Y&#8324;&#179;] + 0.6&#183;Re[Y&#8326;&#178;] &#183; Fourier(x,y,z) &#8594; tanh MLP &#183; Adam, seed 0</text>',
-        f'<circle cx="{cx}" cy="{cy}" r="{R + 1.5}" fill="none" stroke="{rim}" stroke-width="1.5"/>',
+        f'<text x="16" y="19" fill="{fg}" font-size="12" font-weight="bold">neural field on S&#178; &#183; fitting Re[Y&#8324;&#179;] + 0.6&#183;Re[Y&#8326;&#178;]</text>',
+        f'<text x="16" y="33" fill="{sub}" font-size="9">Fourier(x,y,z) &#8594; tanh MLP &#183; Adam &#183; real checkpoints, seed 0</text>',
     ]
-    for q, shade in zip(mesh["quads"], mesh["shades"]):
-        idx = len(parts) - 4  # not used; kept simple below
+
+    # --- 3D coordinate frame: three back walls with grid lines + axes
+    E = 1.3                                      # box half-extent
+    steps = np.linspace(-E, E, 6)
+    walls = [
+        lambda a, b: (a, E, b),                  # back wall   (y = +E)
+        lambda a, b: (-E, a, b),                 # left wall   (x = -E)
+        lambda a, b: (a, b, -E),                 # floor       (z = -E)
+    ]
+    for wall in walls:
+        for s in steps:
+            for line in ((wall(s, -E), wall(s, E)), (wall(-E, s), wall(E, s))):
+                (x1, y1), (x2, y2) = P(*line[0]), P(*line[1])
+                parts.append(
+                    f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="{grid}" stroke-width="0.7"/>'
+                )
+    for a, b, lbl in [((-E, -E, -E), (E, -E, -E), "x"),
+                      ((-E, -E, -E), (-E, E, -E), "y"),
+                      ((-E, -E, -E), (-E, -E, E), "z")]:
+        (x1, y1), (x2, y2) = P(*a), P(*b)
+        parts.append(
+            f'<line x1="{x1:.1f}" y1="{y1:.1f}" x2="{x2:.1f}" y2="{y2:.1f}" stroke="{axis}" stroke-width="1.2"/>'
+        )
+        parts.append(
+            f'<text x="{x2 + (6 if lbl != "z" else -2):.1f}" y="{y2 + (10 if lbl != "z" else -5):.1f}" fill="{axis}" font-size="9">{lbl}</text>'
+        )
+
+    parts.append(
+        f'<circle cx="{cx}" cy="{cy}" r="{R + 1}" fill="none" stroke="{rim}" stroke-width="1.2"/>'
+    )
     for k, (q, shade) in enumerate(zip(mesh["quads"], mesh["shades"])):
         pts = " ".join(f"{cx + R * x:.1f},{cy - R * z:.1f}" for x, z in q)
         vals = [divmap(f[k], shade) for f in frames]
@@ -186,9 +274,8 @@ def sphere_svg(dark):
             f'<polygon points="{pts}" stroke="none">'
             f'<animate attributeName="fill" values="{";".join(vals)}" keyTimes="{key_times}" dur="{dur}" repeatCount="indefinite"/></polygon>'
         )
-    # specular hint for the 3D read
     parts.append(
-        f'<ellipse cx="{cx - 58}" cy="{cy - 92}" rx="42" ry="26" fill="white" opacity="{0.10 if dark else 0.22}" transform="rotate(-32 {cx - 58} {cy - 92})"/>'
+        f'<ellipse cx="{cx - 38}" cy="{cy - 60}" rx="27" ry="17" fill="white" opacity="{0.10 if dark else 0.20}" transform="rotate(-32 {cx - 38} {cy - 60})"/>'
     )
     for i, (ep, ls) in enumerate(zip(KEEP, losses)):
         op = ["0"] * (nf + 2)
@@ -196,10 +283,33 @@ def sphere_svg(dark):
         if i == nf - 1:
             op[nf] = "1"
         parts.append(
-            f'<text x="20" y="{height - 14}" fill="{sub}" font-size="11" opacity="0">'
+            f'<text x="16" y="{height - 12}" fill="{sub}" font-size="10" opacity="0">'
             f'epoch {ep:>4} &#183; mse {ls:.4f}'
             f'<animate attributeName="opacity" values="{";".join(op)}" keyTimes="{key_times}" dur="{dur}" repeatCount="indefinite"/></text>'
         )
+
+    # --- right half: 2x2 gallery of converged 2D neural fields
+    sq, gap, gx, gy = 133, 17, 356, 52
+    for idx, ((name, _), (n, pred, tgt2, mse)) in enumerate(zip(FIELD2D_TARGETS, FIELDS2D)):
+        ox = gx + (idx % 2) * (sq + gap)
+        oy = gy + (idx // 2) * (sq + gap + 16)
+        a2 = np.abs(tgt2).max()
+        vv = np.clip((pred / a2 + 1) / 2, 0, 1)
+        cell = sq / n
+        for i in range(n):
+            for j in range(n):
+                parts.append(
+                    f'<rect x="{ox + j * cell:.1f}" y="{oy + i * cell:.1f}" width="{cell + 0.15:.2f}" height="{cell + 0.15:.2f}" fill="{divmap(vv[i * n + j])}"/>'
+                )
+        parts.append(
+            f'<rect x="{ox}" y="{oy}" width="{sq}" height="{sq}" fill="none" stroke="{rim}" stroke-width="1"/>'
+        )
+        parts.append(
+            f'<text x="{ox}" y="{oy + sq + 11}" fill="{sub}" font-size="9">{name} &#183; mse {mse:.4f}</text>'
+        )
+    parts.append(
+        f'<text x="{gx}" y="{gy - 8}" fill="{sub} " font-size="9">converged 2D fields (same recipe, four targets)</text>'
+    )
     parts.append("</svg>")
     return "".join(parts)
 
@@ -421,6 +531,7 @@ if __name__ == "__main__":
     import pathlib
     root = pathlib.Path(__file__).resolve().parent.parent / "assets"
     FIELD = train_sphere_field()
+    FIELDS2D = [train_field2d(fn) for _, fn in FIELD2D_TARGETS]
     MLP = train_multilingual()
     for dark in (True, False):
         suffix = "dark" if dark else "light"
