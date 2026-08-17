@@ -39,7 +39,7 @@ AI research — <b>LLMs</b> · <b>mathematical representations</b> · <b>evals &
 
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=Sharvin-coder&show_icons=true&include_all_commits=true&count_private=true&theme=github_dark&hide_border=true" alt="GitHub stats" height="165">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Sharvin-coder&theme=github-dark-blue&hide_border=true" alt="streak" height="165">
+  <img src="https://streak-stats.demolab.com/?user=Sharvin-coder&theme=github-dark-blue&hide_border=true" alt="streak" height="165">
 </p>
 
 <picture>
