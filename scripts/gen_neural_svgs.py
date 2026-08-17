@@ -46,7 +46,7 @@ def divmap(v, shade=1.0):
 
 
 # ------------------------------------------------------------ panel 1: S^2 field
-N_LAT, N_LON = 40, 48          # front-hemisphere mesh resolution
+N_LAT, N_LON = 50, 60          # front-hemisphere mesh resolution
 TILT = np.deg2rad(-18)         # tilt toward the viewer
 KEEP = [0, 20, 60, 150, 400, 1200]
 
@@ -157,7 +157,7 @@ def build_mesh():
 
 def train_field2d(target_fn, iters=800):
     """Fit a 2D neural field on [-1,1]^2; return final grid values + mse."""
-    n = 20
+    n = 30
     xs = np.linspace(-1, 1, n)
     X, Y = np.meshgrid(xs, xs)
     pts = np.stack([X.ravel(), Y.ravel()], 1)
@@ -284,9 +284,6 @@ def sphere_svg(dark):
             f'<polygon points="{pts}" stroke="none">'
             f'<animate attributeName="fill" values="{";".join(vals)}" keyTimes="{key_times}" dur="{dur}" repeatCount="indefinite"/></polygon>'
         )
-    parts.append(
-        f'<circle cx="{cx}" cy="{cy}" r="{R + 1.6}" fill="none" stroke="{rim}" stroke-width="1.6"/>'
-    )
     for i, (ep, ls) in enumerate(zip(KEEP, losses)):
         op = ["0"] * (nf + 2)
         op[i] = "1"
@@ -526,7 +523,7 @@ def mlp_svg(dark):
         show = ["0", f"{a:.4f}", f"{end:.4f}", "1"]
         ring = ["0", f"{arrive:.4f}", f"{end:.4f}", "1"]
         parts.append(
-            f'<text x="{lx[2]}" y="62" fill="{fg}" font-size="18" text-anchor="middle" opacity="0">{demo_words[lang]}'
+            f'<text x="16" y="68" fill="{fg}" font-size="16" opacity="0">{demo_words[lang]}'
             f'<animate attributeName="opacity" values="0;1;0;0" keyTimes="{";".join(show)}" dur="{dur}" repeatCount="indefinite" calcMode="discrete"/></text>'
         )
         parts.append(
@@ -534,7 +531,7 @@ def mlp_svg(dark):
             f'<animate attributeName="opacity" values="0;1;0;0" keyTimes="{";".join(ring)}" dur="{dur}" repeatCount="indefinite" calcMode="discrete"/></circle>'
         )
         parts.append(
-            f'<text x="{lx[-1] + 16}" y="{yy - 11:.1f}" fill="{fg}" font-size="9" opacity="0">p={probs[win]:.2f}'
+            f'<text x="16" y="86" fill="{fg}" font-size="9" opacity="0">&#8594; {LANGS[win]} &#183; p={probs[win]:.2f}'
             f'<animate attributeName="opacity" values="0;1;0;0" keyTimes="{";".join(ring)}" dur="{dur}" repeatCount="indefinite" calcMode="discrete"/></text>'
         )
 
