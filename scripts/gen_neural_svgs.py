@@ -46,9 +46,9 @@ def divmap(v, shade=1.0):
 
 
 # ------------------------------------------------------------ panel 1: S^2 field
-N_LAT, N_LON = 50, 60          # front-hemisphere mesh resolution
+N_LAT, N_LON = 30, 36          # front-hemisphere mesh resolution
 TILT = np.deg2rad(-18)         # tilt toward the viewer
-KEEP = [0, 20, 60, 150, 400, 1200]
+KEEP = [0, 60, 150, 400, 1200]
 
 
 def sphere_target(theta, phi):
@@ -411,17 +411,35 @@ def train_multilingual():
             Ws[i] -= lr * gW; bs[i] -= lr * gb
 
     acc = float((forward(X)[-1].argmax(1) == y).mean())
+
+    # mean input->logit Jacobian over the training set (real backprop chain)
+    h = [X]
+    for i, (W, b) in enumerate(zip(Ws, bs)):
+        Z = h[-1] @ W + b
+        h.append(np.tanh(Z) if i < len(Ws) - 1 else Z)
+    jac = np.zeros((sizes[0], sizes[-1]))
+    for s in range(len(X)):
+        J = Ws[0] * 1.0
+        J = J @ np.diag(1 - h[1][s] ** 2) @ Ws[1]
+        J = J @ np.diag(1 - h[2][s] ** 2) @ Ws[2]
+        J = J @ np.diag(1 - h[3][s] ** 2) @ Ws[3]
+        jac += J
+    jac /= len(X)
+
     demo_words = {"EN": "dream", "ES": "corazón",
                   "HI": "संगीत",
                   "AR": "موسيقى",
                   "ZH": "音乐"}
     sample_acts = [[a[0] for a in forward(featurize(demo_words[lang])[None])]
                    for lang in LANGS]
-    return sizes, Ws, sample_acts, acc, demo_words
+    return sizes, Ws, sample_acts, acc, demo_words, jac
+
+
+FEATURE_NAMES = ["latin", "deva", "arab", "cjk", "vowel", "marks", "len", "uniq"]
 
 
 def mlp_svg(dark):
-    sizes, Ws, sample_acts, acc, demo_words = MLP
+    sizes, Ws, sample_acts, acc, demo_words, jac = MLP
     n_layers = len(sizes)
     width, height = 760, 380
     lx = [60, 168, 276, 384, 492]            # horizontal net columns (left half)
@@ -471,7 +489,7 @@ def mlp_svg(dark):
         for i, y0 in enumerate(y0s):
             for j, y1 in enumerate(y1s):
                 w = W[i, j]
-                if abs(w) / wmax < 0.35:
+                if abs(w) / wmax < 0.45:
                     continue
                 col = posw if w >= 0 else negw
                 L = float(np.hypot(lx[k + 1] - lx[k], y1 - y0))
@@ -535,36 +553,31 @@ def mlp_svg(dark):
             f'<animate attributeName="opacity" values="0;1;0;0" keyTimes="{";".join(ring)}" dur="{dur}" repeatCount="indefinite" calcMode="discrete"/></text>'
         )
 
-    # ---- right half: the same network, vertical, activations as a heat ladder
-    vx, vys = 652, [78, 140, 202, 264, 326]
-
-    def xs_v(k):
-        m = sizes[k]
-        return [vx + (i - (m - 1) / 2) * 15 for i in range(m)]
-
+    # ---- right half: mech-interp view -- mean input->logit Jacobian heatmap
+    hx, hy, cw, ch = 606, 92, 26, 24
+    jmax = np.abs(jac).max()
     parts.append(
-        f'<text x="{vx}" y="58" fill="{sub}" font-size="9" text-anchor="middle">same network, vertical</text>'
+        f'<text x="{hx + 2.5 * cw}" y="62" fill="{fg}" font-size="10" text-anchor="middle" font-weight="bold">logit attribution</text>'
     )
-    for k, W in enumerate(Ws):
-        x0s, x1s = xs_v(k), xs_v(k + 1)
-        wmax = np.abs(W).max()
-        for i, x0 in enumerate(x0s):
-            for j, x1 in enumerate(x1s):
-                w = W[i, j]
-                if abs(w) / wmax < 0.3:
-                    continue
-                col = posw if w >= 0 else negw
-                sw = 0.3 + 1.4 * abs(w) / wmax
-                parts.append(
-                    f'<line x1="{x0:.1f}" y1="{vys[k]}" x2="{x1:.1f}" y2="{vys[k+1]}" stroke="{col}" stroke-width="{sw:.2f}" opacity="0.20"/>'
-                )
-    for k in range(n_layers):
-        for i, xx in enumerate(xs_v(k)):
-            parts.append(node_anim(k, i, xx, vys[k], 5.2))
-    for lang, xx in zip(LANGS, xs_v(n_layers - 1)):
+    parts.append(
+        f'<text x="{hx + 2.5 * cw}" y="76" fill="{sub}" font-size="8" text-anchor="middle">mean &#8706;logit/&#8706;x over the 100 words</text>'
+    )
+    for j, lang in enumerate(LANGS):
         parts.append(
-            f'<text x="{xx:.1f}" y="{vys[-1] + 18}" fill="{sub}" font-size="8" text-anchor="middle">{lang}</text>'
+            f'<text x="{hx + j * cw + cw / 2:.1f}" y="{hy - 5}" fill="{sub}" font-size="8" text-anchor="middle">{lang}</text>'
         )
+    for i, name in enumerate(FEATURE_NAMES):
+        parts.append(
+            f'<text x="{hx - 6}" y="{hy + i * ch + ch / 2 + 3:.1f}" fill="{sub}" font-size="8" text-anchor="end">{name}</text>'
+        )
+        for j in range(len(LANGS)):
+            v = (jac[i, j] / jmax + 1) / 2
+            parts.append(
+                f'<rect x="{hx + j * cw}" y="{hy + i * ch}" width="{cw - 1}" height="{ch - 1}" fill="{divmap(v)}"/>'
+            )
+    parts.append(
+        f'<text x="{hx}" y="{hy + len(FEATURE_NAMES) * ch + 14}" fill="{sub}" font-size="8">red = pushes logit up &#183; blue = down</text>'
+    )
     parts.append("</svg>")
     return "".join(parts)
 
