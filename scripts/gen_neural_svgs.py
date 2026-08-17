@@ -46,7 +46,7 @@ def divmap(v, shade=1.0):
 
 
 # ------------------------------------------------------------ panel 1: S^2 field
-N_LAT, N_LON = 30, 36          # front-hemisphere mesh resolution
+N_LAT, N_LON = 40, 48          # front-hemisphere mesh resolution
 TILT = np.deg2rad(-18)         # tilt toward the viewer
 KEEP = [0, 20, 60, 150, 400, 1200]
 
@@ -262,6 +262,14 @@ def sphere_svg(dark):
         parts.append(
             f'<text x="{x2 + (6 if lbl != "z" else -2):.1f}" y="{y2 + (10 if lbl != "z" else -5):.1f}" fill="{axis}" font-size="9">{lbl}</text>'
         )
+    # numeric ticks on each axis, matplotlib-style
+    for v in (-1, 0, 1):
+        tx, ty = P(v, -E, -E)
+        parts.append(f'<text x="{tx:.1f}" y="{ty + 10:.1f}" fill="{axis}" font-size="7" text-anchor="middle">{v}</text>')
+        tx, ty = P(-E, v, -E)
+        parts.append(f'<text x="{tx - 4:.1f}" y="{ty + 9:.1f}" fill="{axis}" font-size="7" text-anchor="end">{v}</text>')
+        tx, ty = P(-E, -E, v)
+        parts.append(f'<text x="{tx - 5:.1f}" y="{ty + 3:.1f}" fill="{axis}" font-size="7" text-anchor="end">{v}</text>')
 
     for k, (q, shade) in enumerate(zip(mesh["quads"], mesh["shades"])):
         # expand each quad slightly about its centroid to hide AA seams
@@ -419,47 +427,56 @@ def mlp_svg(dark):
     sizes, Ws, sample_acts, acc, demo_words = MLP
     n_layers = len(sizes)
     width, height = 760, 380
-    lx = [80, 230, 380, 530, 680]
+    lx = [60, 168, 276, 384, 492]            # horizontal net columns (left half)
     fg = "#c9d1d9" if dark else "#24292f"
     sub = "#8b949e" if dark else "#57606a"
-    pos, neg = "#58a6ff", "#f0883e"
-    glow = "#e3b341" if dark else "#bf8700"
+    grid = "#21262d" if dark else "#eaeef2"
+    posw, negw = "#b40426", "#3b4cc0"        # weight sign, matched to the field's map
     n_phase, phase_s, total = len(LANGS), 3.0, 15.0
     dur = f"{total:.0f}s"
 
+    def act01(k, a):
+        """Map a raw activation to [0,1] on the diverging scale."""
+        if k == 0:
+            return float(np.clip(a, 0, 1))            # features already in [0,1]
+        if k < n_layers - 1:
+            return float(np.clip((a + 1) / 2, 0, 1))  # tanh range
+        return float(np.clip(a, 0, 1))                # softmax prob
+
     def ys(k):
         m = sizes[k]
-        return [206 + (i - (m - 1) / 2) * 25 for i in range(m)]
+        return [200 + (i - (m - 1) / 2) * 24 for i in range(m)]
 
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">',
-        f'<text x="20" y="22" fill="{fg}" font-size="13" font-weight="bold">which language is this word? 8&#8722;12&#8722;12&#8722;8&#8722;5 tanh &#8594; softmax</text>',
-        f'<text x="20" y="36" fill="{sub}" font-size="10">trained on 100 real words across 5 scripts &#183; edge width &#8733; |w| &#183; glow = real activation &#183; train acc {acc:.0%} &#183; seed 0</text>',
-        f'<text x="{lx[0]}" y="364" fill="{sub}" font-size="10" text-anchor="middle">script + char stats &#8712; &#8477;&#8312;</text>',
-        f'<text x="{lx[1]}" y="364" fill="{sub}" font-size="10" text-anchor="middle">tanh (12)</text>',
-        f'<text x="{lx[2]}" y="364" fill="{sub}" font-size="10" text-anchor="middle">tanh (12)</text>',
-        f'<text x="{lx[3]}" y="364" fill="{sub}" font-size="10" text-anchor="middle">tanh (8)</text>',
-        f'<text x="{lx[4]}" y="364" fill="{sub}" font-size="10" text-anchor="middle">softmax (5)</text>',
+        f'<text x="16" y="20" fill="{fg}" font-size="12" font-weight="bold">which language is this word? 8&#8722;12&#8722;12&#8722;8&#8722;5 tanh &#8594; softmax</text>',
+        f'<text x="16" y="34" fill="{sub}" font-size="9">100 real words, 5 scripts &#183; edges: red w&#62;0 / blue w&#60;0, width &#8733; |w| &#183; nodes: activation on the field&#39;s diverging scale &#183; train acc {acc:.0%} &#183; seed 0</text>',
+        f'<line x1="552" y1="46" x2="552" y2="{height - 24}" stroke="{grid}" stroke-width="1"/>',
+        f'<text x="{lx[0]}" y="{height - 12}" fill="{sub}" font-size="9" text-anchor="middle">x &#8712; &#8477;&#8312;</text>',
+        f'<text x="{lx[1]}" y="{height - 12}" fill="{sub}" font-size="9" text-anchor="middle">tanh 12</text>',
+        f'<text x="{lx[2]}" y="{height - 12}" fill="{sub}" font-size="9" text-anchor="middle">tanh 12</text>',
+        f'<text x="{lx[3]}" y="{height - 12}" fill="{sub}" font-size="9" text-anchor="middle">tanh 8</text>',
+        f'<text x="{lx[4]}" y="{height - 12}" fill="{sub}" font-size="9" text-anchor="middle">softmax 5</text>',
     ]
 
-    kt_all = None
+    # ---- left half: horizontal net with travelling pulses
     for k, W in enumerate(Ws):
         y0s, y1s = ys(k), ys(k + 1)
         wmax = np.abs(W).max()
         for i, y0 in enumerate(y0s):
             for j, y1 in enumerate(y1s):
                 w = W[i, j]
-                sw = 0.3 + 2.0 * abs(w) / wmax
-                col = pos if w >= 0 else neg
+                sw = 0.3 + 1.9 * abs(w) / wmax
+                col = posw if w >= 0 else negw
                 parts.append(
-                    f'<line x1="{lx[k]}" y1="{y0:.1f}" x2="{lx[k+1]}" y2="{y1:.1f}" stroke="{col}" stroke-width="{sw:.2f}" opacity="0.13"/>'
+                    f'<line x1="{lx[k]}" y1="{y0:.1f}" x2="{lx[k+1]}" y2="{y1:.1f}" stroke="{col}" stroke-width="{sw:.2f}" opacity="0.15"/>'
                 )
         for i, y0 in enumerate(y0s):
             for j, y1 in enumerate(y1s):
                 w = W[i, j]
                 if abs(w) / wmax < 0.35:
                     continue
-                col = pos if w >= 0 else neg
+                col = posw if w >= 0 else negw
                 L = float(np.hypot(lx[k + 1] - lx[k], y1 - y0))
                 kts, offs, ops = ["0"], [f"{L:.0f}"], ["0"]
                 for p in range(n_phase):
@@ -470,40 +487,35 @@ def mlp_svg(dark):
                     ops += ["0", "1", "1", "0"]
                 kts.append("1"); offs.append(f"{L:.0f}"); ops.append("0")
                 parts.append(
-                    f'<line x1="{lx[k]}" y1="{y0:.1f}" x2="{lx[k+1]}" y2="{y1:.1f}" stroke="{col}" stroke-width="1.8" '
+                    f'<line x1="{lx[k]}" y1="{y0:.1f}" x2="{lx[k+1]}" y2="{y1:.1f}" stroke="{col}" stroke-width="1.7" '
                     f'stroke-dasharray="6 {L:.0f}" opacity="0">'
                     f'<animate attributeName="stroke-dashoffset" values="{";".join(offs)}" keyTimes="{";".join(kts)}" dur="{dur}" repeatCount="indefinite" calcMode="linear"/>'
                     f'<animate attributeName="opacity" values="{";".join(ops)}" keyTimes="{";".join(kts)}" dur="{dur}" repeatCount="indefinite" calcMode="discrete"/></line>'
                 )
 
-    for k in range(n_layers):
-        for i, yy in enumerate(ys(k)):
-            vals = []
-            for p in range(n_phase):
-                a = sample_acts[p][k][i]
-                if k == 0:
-                    a = float(a)                        # features already in [0,1]
-                elif k < n_layers - 1:
-                    a = (a + 1) / 2
-                vals.append(float(np.clip(a, 0, 1)))
-            kts, ops = ["0"], [f"{0.12 + 0.88 * vals[-1]:.2f}"]
-            for p in range(n_phase):
-                arrive = (p * phase_s + k * 0.55 + 0.4) / total
-                kts.append(f"{arrive:.4f}")
-                ops.append(f"{0.12 + 0.88 * vals[p]:.2f}")
-            kts.append("1"); ops.append(ops[-1])
-            parts.append(
-                f'<circle cx="{lx[k]}" cy="{yy:.1f}" r="7.5" fill="{glow}" stroke="{sub}" stroke-width="0.8" opacity="0.15">'
-                f'<animate attributeName="opacity" values="{";".join(ops)}" keyTimes="{";".join(kts)}" dur="{dur}" repeatCount="indefinite" calcMode="discrete"/></circle>'
-            )
-
-    # output labels
-    for i, (lang, yy) in enumerate(zip(LANGS, ys(n_layers - 1))):
-        parts.append(
-            f'<text x="{lx[-1] + 18}" y="{yy + 3.5:.1f}" fill="{sub}" font-size="10">{lang}</text>'
+    def node_anim(k, i, cx_, cy_, r):
+        vals = [divmap(act01(k, sample_acts[p][k][i])) for p in range(n_phase)]
+        kts, fills = ["0"], [vals[-1]]
+        for p in range(n_phase):
+            arrive = (p * phase_s + k * 0.55 + 0.4) / total
+            kts.append(f"{arrive:.4f}")
+            fills.append(vals[p])
+        kts.append("1"); fills.append(fills[-1])
+        return (
+            f'<circle cx="{cx_:.1f}" cy="{cy_:.1f}" r="{r}" stroke="{sub}" stroke-width="0.8" fill="{vals[-1]}">'
+            f'<animate attributeName="fill" values="{";".join(fills)}" keyTimes="{";".join(kts)}" dur="{dur}" repeatCount="indefinite" calcMode="discrete"/></circle>'
         )
 
-    # per-phase: the word itself (in its script), argmax ring + probability
+    for k in range(n_layers):
+        for i, yy in enumerate(ys(k)):
+            parts.append(node_anim(k, i, lx[k], yy, 7))
+
+    for i, (lang, yy) in enumerate(zip(LANGS, ys(n_layers - 1))):
+        parts.append(
+            f'<text x="{lx[-1] + 16}" y="{yy + 3.5:.1f}" fill="{sub}" font-size="9">{lang}</text>'
+        )
+
+    # per-phase word + winner ring on the horizontal net
     for p, lang in enumerate(LANGS):
         probs = sample_acts[p][n_layers - 1]
         win = int(np.argmax(probs))
@@ -514,20 +526,50 @@ def mlp_svg(dark):
         show = ["0", f"{a:.4f}", f"{end:.4f}", "1"]
         ring = ["0", f"{arrive:.4f}", f"{end:.4f}", "1"]
         parts.append(
-            f'<text x="{lx[0]}" y="62" fill="{fg}" font-size="20" text-anchor="middle" opacity="0">{demo_words[lang]}'
+            f'<text x="{lx[2]}" y="62" fill="{fg}" font-size="18" text-anchor="middle" opacity="0">{demo_words[lang]}'
             f'<animate attributeName="opacity" values="0;1;0;0" keyTimes="{";".join(show)}" dur="{dur}" repeatCount="indefinite" calcMode="discrete"/></text>'
         )
         parts.append(
-            f'<circle cx="{lx[-1]}" cy="{yy:.1f}" r="12.5" fill="none" stroke="{glow}" stroke-width="2" opacity="0">'
+            f'<circle cx="{lx[-1]}" cy="{yy:.1f}" r="12" fill="none" stroke="{fg}" stroke-width="1.6" opacity="0">'
             f'<animate attributeName="opacity" values="0;1;0;0" keyTimes="{";".join(ring)}" dur="{dur}" repeatCount="indefinite" calcMode="discrete"/></circle>'
         )
         parts.append(
-            f'<text x="{lx[-1] + 18}" y="{yy - 12:.1f}" fill="{fg}" font-size="10" opacity="0">p={probs[win]:.2f}'
+            f'<text x="{lx[-1] + 16}" y="{yy - 11:.1f}" fill="{fg}" font-size="9" opacity="0">p={probs[win]:.2f}'
             f'<animate attributeName="opacity" values="0;1;0;0" keyTimes="{";".join(ring)}" dur="{dur}" repeatCount="indefinite" calcMode="discrete"/></text>'
+        )
+
+    # ---- right half: the same network, vertical, activations as a heat ladder
+    vx, vys = 652, [78, 140, 202, 264, 326]
+
+    def xs_v(k):
+        m = sizes[k]
+        return [vx + (i - (m - 1) / 2) * 15 for i in range(m)]
+
+    parts.append(
+        f'<text x="{vx}" y="58" fill="{sub}" font-size="9" text-anchor="middle">same network, vertical</text>'
+    )
+    for k, W in enumerate(Ws):
+        x0s, x1s = xs_v(k), xs_v(k + 1)
+        wmax = np.abs(W).max()
+        for i, x0 in enumerate(x0s):
+            for j, x1 in enumerate(x1s):
+                w = W[i, j]
+                if abs(w) / wmax < 0.3:
+                    continue
+                col = posw if w >= 0 else negw
+                sw = 0.3 + 1.4 * abs(w) / wmax
+                parts.append(
+                    f'<line x1="{x0:.1f}" y1="{vys[k]}" x2="{x1:.1f}" y2="{vys[k+1]}" stroke="{col}" stroke-width="{sw:.2f}" opacity="0.20"/>'
+                )
+    for k in range(n_layers):
+        for i, xx in enumerate(xs_v(k)):
+            parts.append(node_anim(k, i, xx, vys[k], 5.2))
+    for lang, xx in zip(LANGS, xs_v(n_layers - 1)):
+        parts.append(
+            f'<text x="{xx:.1f}" y="{vys[-1] + 18}" fill="{sub}" font-size="8" text-anchor="middle">{lang}</text>'
         )
     parts.append("</svg>")
     return "".join(parts)
-
 
 if __name__ == "__main__":
     import pathlib
