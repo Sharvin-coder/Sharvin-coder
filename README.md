@@ -42,6 +42,7 @@
   <img src="https://img.shields.io/badge/vLLM-30302E?style=for-the-badge&logoColor=white" alt="vLLM">
   <img src="https://img.shields.io/badge/DeepSpeed-0A74DA?style=for-the-badge&logoColor=white" alt="DeepSpeed">
   <img src="https://img.shields.io/badge/Megatron--LM-76B900?style=for-the-badge&logo=nvidia&logoColor=white" alt="Megatron-LM">
+  <img src="https://img.shields.io/badge/Nemotron-538300?style=for-the-badge&logo=nvidia&logoColor=white" alt="Nemotron">
   <img src="https://img.shields.io/badge/Ray-028CF0?style=for-the-badge&logo=ray&logoColor=white" alt="Ray">
   <img src="https://img.shields.io/badge/Triton-3B3B3B?style=for-the-badge&logoColor=white" alt="OpenAI Triton">
   <img src="https://img.shields.io/badge/einops-8B5CF6?style=for-the-badge&logoColor=white" alt="einops">
@@ -57,6 +58,9 @@
   <img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white" alt="Ollama">
   <img src="https://img.shields.io/badge/Gemma-886FBF?style=for-the-badge&logo=googlegemini&logoColor=white" alt="Gemma">
   <img src="https://img.shields.io/badge/Llama-0467DF?style=for-the-badge&logo=meta&logoColor=white" alt="Llama">
+  <img src="https://img.shields.io/badge/Qwen-6336E7?style=for-the-badge&logo=qwen&logoColor=white" alt="Qwen">
+  <img src="https://img.shields.io/badge/DeepSeek-4D6BFE?style=for-the-badge&logo=deepseek&logoColor=white" alt="DeepSeek">
+  <img src="https://img.shields.io/badge/Mistral-FA520F?style=for-the-badge&logo=mistralai&logoColor=white" alt="Mistral">
   <img src="https://img.shields.io/badge/Gradio-FF7C00?style=for-the-badge&logoColor=white" alt="Gradio">
   <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit">
 </p>
@@ -71,6 +75,16 @@
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
   <img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logoColor=white" alt="AWS">
   <img src="https://img.shields.io/badge/Azure-0078D4?style=for-the-badge&logoColor=white" alt="Azure">
+</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/arXiv-B31B1B?style=for-the-badge&logo=arxiv&logoColor=white" alt="arXiv">
+  <img src="https://img.shields.io/badge/Papers_with_Code-21CBCE?style=for-the-badge&logo=paperswithcode&logoColor=black" alt="Papers with Code">
+  <img src="https://img.shields.io/badge/Semantic_Scholar-1857B6?style=for-the-badge&logo=semanticscholar&logoColor=white" alt="Semantic Scholar">
+  <img src="https://img.shields.io/badge/PaSa-325AB4?style=for-the-badge&logo=bytedance&logoColor=white" alt="PaSa">
+  <img src="https://img.shields.io/badge/Onyx-0D0D0D?style=for-the-badge&logoColor=white" alt="Onyx">
+  <img src="https://img.shields.io/badge/ResNet-B7472A?style=for-the-badge&logoColor=white" alt="ResNet">
+  <img src="https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=kaggle&logoColor=white" alt="Kaggle">
+  <img src="https://img.shields.io/badge/Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=black" alt="Google Colab">
 </p>
 
 <picture>
